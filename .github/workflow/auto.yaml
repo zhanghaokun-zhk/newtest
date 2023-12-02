@@ -1,0 +1,38 @@
+name: Deploy Django to Tencent Cloud
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8' # 根据你的项目选择 Python 版本
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Deploy to Tencent Cloud
+      uses: appleboy/ssh-action@master
+      with:
+        host: 124.221.154.76
+        port: 22
+        username: ubuntu # 你的服务器用户名
+        password: ${{ secrets.SERVER_PASSWORD }} # 或者使用 key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /path/to/your/project
+          git pull
+          pip install -r requirements.txt
+          python manage.py makemigrations
+          python manage.py migrate
+          python manage.py runserver
+          # 重启你的应用，例如使用 gunicorn
+          # sudo systemctl restart gunicorn
+          echo "Deployment completed"
