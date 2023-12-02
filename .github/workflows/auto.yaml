@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements.txt
           cd Testing
           python manage.py makemigrations
-          python manage.py migrate
+          python manage.py migrate 
           python manage.py runserver
           # 重启你的应用，例如使用 gunicorn
           # sudo systemctl restart gunicorn
