@@ -27,6 +27,7 @@ jobs:
         username: ubuntu # 你的服务器用户名
         password: ${{ secrets.SERVER_PASSWORD }} # 或者使用 key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
+          ls
           cd /path/to/your/project
           git pull
           pip install -r requirements.txt
