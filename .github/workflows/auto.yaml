@@ -28,9 +28,10 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }} # 或者使用 key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           ls
-          cd /path/to/your/project
+          cd newtest
           git pull
           pip install -r requirements.txt
+          cd Testing
           python manage.py makemigrations
           python manage.py migrate
           python manage.py runserver
